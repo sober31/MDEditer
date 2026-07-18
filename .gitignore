@@ -1,0 +1,6 @@
+# 依赖安装产物（CI 用 npm ci 重新生成）
+node_modules/
+
+# 系统/编辑器产物
+.DS_Store
+*.log

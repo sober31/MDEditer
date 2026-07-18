@@ -1,0 +1,22 @@
+{
+  "name": "mdediter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vim-style Markdown viewer/editor — single-file standalone build (offline, cross-platform).",
+  "scripts": {
+    "build:cm": "node scripts/build-cm.mjs",
+    "build:standalone": "node scripts/build-standalone.mjs",
+    "build": "npm run build:cm && npm run build:standalone",
+    "test": "node test/integ.mjs"
+  },
+  "devDependencies": {
+    "@codemirror/commands": "^6.0.0",
+    "@codemirror/lang-markdown": "^6.0.0",
+    "@codemirror/language": "^6.0.0",
+    "@codemirror/state": "^6.0.0",
+    "@codemirror/view": "^6.0.0",
+    "@replit/codemirror-vim": "^6.0.0",
+    "esbuild": "^0.21.5",
+    "jsdom": "^24.0.0"
+  }
+}

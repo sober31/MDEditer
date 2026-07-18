@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MDEditer · Markdown 查看 / 编辑工具</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 顶部工具栏 -->
+  <header class="toolbar">
+    <div class="tb-group brand">
+      <span class="logo">M</span>
+      <span class="title">MDEditer</span>
+      <span class="filename" id="fileName" title="当前文件名">未命名.md</span>
+    </div>
+
+    <div class="tb-group views" role="tablist" aria-label="视图切换">
+      <button class="view-btn active" data-view="source">源码</button>
+      <button class="view-btn" data-view="split">分屏</button>
+      <button class="view-btn" data-view="preview">预览</button>
+    </div>
+
+    <div class="tb-group actions">
+      <button id="btnUndo" title="撤销 (u / Ctrl-r)">↶ 撤销</button>
+      <button id="btnRedo" title="重做 (Ctrl-r)">↷ 重做</button>
+      <button id="btnOpen" title="打开文件 (Cmd/Ctrl+O)">打开</button>
+      <button id="btnSave" title="保存 (Cmd/Ctrl+S)">保存</button>
+      <button id="btnSaveAs" title="另存为">另存为</button>
+      <button id="btnNew" title="新建">新建</button>
+      <button id="btnOutline" title="大纲目录">大纲</button>
+      <button id="btnHtml" title="查看生成的 HTML 源码">HTML</button>
+      <button id="btnTheme" title="切换明暗主题">🌓</button>
+    </div>
+  </header>
+
+  <!-- 格式化工具条（源码/分屏模式显示） -->
+  <div class="formatbar" id="formatBar">
+    <button data-cmd="bold" title="加粗 (Cmd/Ctrl+B)"><b>B</b></button>
+    <button data-cmd="italic" title="斜体 (Cmd/Ctrl+I)"><i>I</i></button>
+    <button data-cmd="strike" title="删除线"><s>S</s></button>
+    <button data-cmd="h1" title="一级标题">H1</button>
+    <button data-cmd="h2" title="二级标题">H2</button>
+    <button data-cmd="h3" title="三级标题">H3</button>
+    <button data-cmd="quote" title="引用">❝</button>
+    <button data-cmd="code" title="行内代码">&lt;/&gt;</button>
+    <button data-cmd="codeblock" title="代码块">{ }</button>
+    <button data-cmd="ul" title="无序列表">• 列表</button>
+    <button data-cmd="ol" title="有序列表">1. 列表</button>
+    <button data-cmd="task" title="任务清单">☑ 任务</button>
+    <button data-cmd="link" title="链接 (Cmd/Ctrl+K)">🔗</button>
+    <button data-cmd="img" title="图片">🖼</button>
+    <button data-cmd="table" title="表格">▦</button>
+    <button data-cmd="hr" title="分隔线">―</button>
+  </div>
+
+  <!-- 主区域 -->
+  <main class="workspace" id="workspace">
+    <!-- 源码面板（CodeMirror + Vim） -->
+    <section class="pane source-pane" id="sourcePane">
+      <div id="cmHost" class="cm-host"></div>
+    </section>
+
+    <!-- 预览面板 -->
+    <section class="pane preview-pane" id="previewPane">
+      <article class="markdown-body" id="preview"></article>
+    </section>
+  </main>
+
+  <!-- 大纲侧栏 -->
+  <aside class="outline" id="outlinePanel" aria-hidden="true">
+    <div class="outline-head">
+      <span>文档大纲</span>
+      <button id="outlineClose">✕</button>
+    </div>
+    <nav id="outlineList"></nav>
+  </aside>
+
+  <!-- 状态栏 -->
+  <footer class="statusbar">
+    <span id="statView">视图: 源码</span>
+    <span id="statCursor">行 1, 列 1</span>
+    <span id="statCount">0 字 / 0 行</span>
+    <span id="statTasks">任务 0/0</span>
+    <span id="statSaved" class="saved-hint">已自动保存草稿</span>
+  </footer>
+
+  <!-- HTML 源码弹窗 -->
+  <div class="modal-mask" id="htmlModal" aria-hidden="true">
+    <div class="modal">
+      <div class="modal-head">
+        <span>生成的 HTML 源码</span>
+        <div>
+          <button id="htmlCopy">复制</button>
+          <button id="htmlClose">关闭</button>
+        </div>
+      </div>
+      <pre id="htmlSrc"></pre>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" accept=".md,.markdown,.txt,.mdx" hidden />
+  <script src="vendor/marked.min.js"></script>
+  <script src="vendor/purify.min.js"></script>
+  <script src="dist/cm.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
